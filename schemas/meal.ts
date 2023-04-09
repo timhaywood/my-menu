@@ -9,8 +9,13 @@ export const meal = defineType({
       title: "Name",
       name: "name",
       type: "string",
-      description: "Name of the dish, e.g. 'Butter Chicken'",
+      description: "Name of the dish, e.g. 'Butter chicken' (sentence case)",
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      title: "Description",
+      name: "description",
+      type: "string",
     }),
     defineField({
       title: "Photo",
@@ -23,13 +28,12 @@ export const meal = defineType({
       name: "carb",
       type: "array",
       description: "List of the possible carbohydrate options",
-      validation: (Rule) => Rule.required(),
       of: [
         defineArrayMember({
           type: "string",
           name: "carb",
           options: {
-            list: ["rice", "pasta", "bread", "potato", "pastry"],
+            list: ["rice", "pasta", "bread", "potato", "pastry", "noodles"],
           },
         }),
       ],
@@ -39,13 +43,12 @@ export const meal = defineType({
       name: "protein",
       type: "array",
       description: "List of the possible protein options",
-      validation: (Rule) => Rule.required(),
       of: [
         defineArrayMember({
           type: "string",
-          name: "carb",
+          name: "protein",
           options: {
-            list: ["chicken", "beef", "pork", "lamb", "fish"],
+            list: ["chicken", "beef", "pork", "lamb", "fish", "egg"],
           },
         }),
       ],
@@ -59,6 +62,25 @@ export const meal = defineType({
       options: {
         list: ["easy", "medium", "hard"],
       },
+    }),
+    defineField({
+      title: "Type",
+      name: "type",
+      type: "string",
+      options: {
+        list: ["main", "side", "entree"],
+      },
+    }),
+    defineField({
+      title: "Related recipes",
+      name: "relatedRecipes",
+      type: "array",
+      of: [
+        defineArrayMember({
+          type: "reference",
+          to: [{ type: "meal" }],
+        }),
+      ],
     }),
   ],
 });
