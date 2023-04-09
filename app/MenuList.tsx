@@ -1,4 +1,5 @@
 "use client";
+import { Meal } from "@/schemas/meal";
 import { useState } from "react";
 
 const proteinTypes = {
@@ -18,7 +19,7 @@ const carbTypes = {
   noodles: false,
 };
 
-export function MenuList({ data }) {
+export function MenuList({ data }: { data: Meal[] }) {
   const [proteinFilters, setProteinFilters] = useState(proteinTypes);
   const [carbFilters, setCarbFilters] = useState(carbTypes);
 
@@ -47,34 +48,38 @@ export function MenuList({ data }) {
     <div>
       <div className="flex flex-col gap-3 pb-6">
         <div className="whitespace-nowrap overflow-auto">
-          {Object.keys(proteinTypes).map((protein) => (
-            <button
-              key={protein}
-              className={`border border-solid border-white p-2 mr-2 ${
-                proteinFilters[protein] ? "bg-white text-black" : ""
-              }`}
-              onClick={() => {
-                toggleProteinFilter(protein);
-              }}
-            >
-              {protein}
-            </button>
-          ))}
+          {(Object.keys(proteinTypes) as (keyof typeof proteinTypes)[]).map(
+            (protein) => (
+              <button
+                key={protein}
+                className={`border border-solid border-white p-2 mr-2 ${
+                  proteinFilters[protein] ? "bg-white text-black" : ""
+                }`}
+                onClick={() => {
+                  toggleProteinFilter(protein);
+                }}
+              >
+                {protein}
+              </button>
+            )
+          )}
         </div>
         <div className="whitespace-nowrap overflow-auto">
-          {Object.keys(carbTypes).map((carb) => (
-            <button
-              onClick={() => {
-                toggleCarbFilter(carb);
-              }}
-              key={carb}
-              className={`border border-solid border-white p-2 mr-2 ${
-                carbFilters[carb] ? "bg-white text-black" : ""
-              }`}
-            >
-              {carb}
-            </button>
-          ))}
+          {(Object.keys(carbTypes) as (keyof typeof carbTypes)[]).map(
+            (carb) => (
+              <button
+                onClick={() => {
+                  toggleCarbFilter(carb);
+                }}
+                key={carb}
+                className={`border border-solid border-white p-2 mr-2 ${
+                  carbFilters[carb] ? "bg-white text-black" : ""
+                }`}
+              >
+                {carb}
+              </button>
+            )
+          )}
         </div>
       </div>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">

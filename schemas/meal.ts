@@ -84,3 +84,17 @@ export const meal = defineType({
     }),
   ],
 });
+
+export type Meal = {
+  _createdAt: string;
+  _id: string;
+  _rev: string;
+  _type: "meal";
+  _updatedAt: string;
+  carb: ("rice" | "pasta" | "bread" | "potato" | "pastry" | "noodles")[];
+  description: string;
+  difficulty: "easy" | "medium" | "hard";
+  name: string;
+  protein: ("chicken" | "beef" | "pork" | "lamb" | "fish" | "egg")[];
+  type: "main" | "side" | "entree";
+};
